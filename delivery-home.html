@@ -86,7 +86,13 @@
 
             const tbody = document.getElementById('my-deliveries-table');
             const orders = getOrders();
-            const mine = orders.filter(o => o.delivery && o.delivery.assignedDeliveryMan && o.delivery.assignedDeliveryMan.id === u.id);
+            // Filter: only show assigned orders that are NOT yet delivered
+            const mine = orders.filter(o => 
+                o.delivery && 
+                o.delivery.assignedDeliveryMan && 
+                o.delivery.assignedDeliveryMan.id === u.id &&
+                o.status !== 'delivered'  // Automatically hide delivered orders
+            );
             tbody.innerHTML = '';
             mine.forEach(o => {
                 const tr = document.createElement('tr');

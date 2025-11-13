@@ -827,7 +827,7 @@ function createProductCard(product) {
                 <h5 class="card-title crown-icon">${product.name}</h5>
                 <p class="card-text text-muted">${product.description}</p>
                 <div class="d-flex justify-content-between align-items-center">
-                    <span class="product-price">$${product.price}</span>
+                    <span class="product-price">₹${product.price}</span>
                     <div>
                         ${adminDeleteButton}
                         <button class="btn btn-outline-primary btn-sm me-2" onclick="viewProduct(${product.id})">
@@ -918,7 +918,7 @@ function loadRelatedProducts() {
                         <img src="${product.image}" alt="${product.name}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px;">
                     </div>
                     <h6 class="card-title">${product.name}</h6>
-                    <p class="product-price">$${product.price}</p>
+                    <p class="product-price">₹${product.price}</p>
                     <button class="btn btn-outline-primary btn-sm" onclick="viewProduct(${product.id})">
                         View Details
                     </button>
@@ -960,13 +960,13 @@ function renderCart() {
                     </div>
                 </div>
             </td>
-            <td>$${item.price.toFixed(2)}</td>
+            <td>₹${item.price.toFixed(2)}</td>
             <td>
                 <input type="number" class="form-control quantity-input" 
                        value="${item.quantity}" min="1" max="10"
                        onchange="updateQuantity(${item.id}, this.value)">
             </td>
-            <td class="fw-bold">$${(item.price * item.quantity).toFixed(2)}</td>
+            <td class="fw-bold">₹${(item.price * item.quantity).toFixed(2)}</td>
             <td>
                 <button class="btn btn-outline-danger btn-sm" onclick="removeFromCart(${item.id})">
                     <i class="fas fa-trash"></i>
@@ -1028,7 +1028,7 @@ function loadCheckoutSummary() {
             <div>
                 <small>${item.name} × ${item.quantity}</small>
             </div>
-            <small class="fw-bold">$${(item.price * item.quantity).toFixed(2)}</small>
+            <small class="fw-bold">₹${(item.price * item.quantity).toFixed(2)}</small>
         `;
         container.appendChild(div);
     });
@@ -2472,14 +2472,14 @@ function createOrderCard(order) {
                         ${orderItems.map(item => `
                             <li class="mb-1">
                                 <i class="${item.icon || 'fas fa-crown'} text-primary me-2"></i>
-                                ${item.name} × ${item.quantity} - $${(item.price * item.quantity).toFixed(2)}
+                                ${item.name} × ${item.quantity} - ₹${(item.price * item.quantity).toFixed(2)}
                             </li>
                         `).join('')}
                     </ul>
                 </div>
                 <div class="col-md-4 text-end">
                     <div class="mb-2">
-                        <strong>Total: $${order.totals ? order.totals.total.toFixed(2) : order.total.toFixed(2)}</strong>
+                        <strong>Total: ₹${order.totals ? order.totals.total.toFixed(2) : order.total.toFixed(2)}</strong>
                     </div>
                     <div class="btn-group">
                         <button class="btn btn-outline-primary btn-sm" onclick="viewOrderDetails('${order.id}')">Details</button>
@@ -2536,7 +2536,7 @@ Tracking Number: ${order.delivery.trackingNumber}
 Estimated Delivery: ${order.delivery.estimatedDelivery}`;
         }
         
-        alert(`Order Details:\nOrder ID: ${order.id}\nDate: ${orderDate}\nTotal: $${orderTotal}\nStatus: ${order.status}${deliveryInfo}`);
+        alert(`Order Details:\nOrder ID: ${order.id}\nDate: ${orderDate}\nTotal: ₹${orderTotal}\nStatus: ${order.status}${deliveryInfo}`);
     }
 }
 
@@ -2657,7 +2657,7 @@ function zomoAssistantAnswer(question) {
             const filteredProducts = products.filter(p => p.price <= maxPrice);
             if (filteredProducts.length > 0) {
                 const top = filteredProducts.slice(0, 5).map(p => `• ${p.name} - ${p.price.toFixed(2)}`).join('\n');
-                return `Products under $${maxPrice}:\n${top}\n\nBrowse all products in the Shop section!`;
+                return `Products under ₹${maxPrice}:\n${top}\n\nBrowse all products in the Shop section!`;
             }
         }
         
@@ -2717,7 +2717,7 @@ function zomoAssistantAnswer(question) {
             const status = o.status || 'confirmed';
             const total = o.totals ? o.totals.total : o.total;
             const deliveryInfo = o.delivery ? `\n   Driver: ${o.delivery.assignedDeliveryMan.name} (${o.delivery.assignedDeliveryMan.phone})` : '';
-            return `📦 **Order #${o.id}**\n   Date: ${orderDate}\n   Status: ${status}\n   Total: $${total.toFixed(2)}${deliveryInfo}`;
+            return `📦 **Order #${o.id}**\n   Date: ${orderDate}\n   Status: ${status}\n   Total: ₹${total.toFixed(2)}${deliveryInfo}`;
         }).join('\n\n');
         
         return `📦 **Your Recent Orders**\n\n${recentOrders}\n\n**Total Orders:** ${orders.length}\n\nNeed help with a specific order? Ask me about order details!`;
@@ -2740,7 +2740,7 @@ function zomoAssistantAnswer(question) {
     const products = getStoredProducts();
     const found = products.find(p => q.includes(p.name.toLowerCase()) || q.includes(p.category.toLowerCase()));
     if (found) {
-        return `🛍️ **${found.name}**\n\n**Price:** $${found.price.toFixed(2)}\n**Category:** ${found.category}\n**Description:** ${found.description}\n\n**Features:**\n${found.features ? found.features.map(f => `• ${f}`).join('\n') : 'No specific features listed'}\n\n**Add to Cart:** Visit the Shop page to purchase this item!`;
+        return `🛍️ **${found.name}**\n\n**Price:** ₹${found.price.toFixed(2)}\n**Category:** ${found.category}\n**Description:** ${found.description}\n\n**Features:**\n${found.features ? found.features.map(f => `• ${f}`).join('\n') : 'No specific features listed'}\n\n**Add to Cart:** Visit the Shop page to purchase this item!`;
     }
 
     // Fallback with suggestions
@@ -2880,7 +2880,7 @@ function renderInternationalPurchases() {
             <td>${item.company}</td>
             <td>${item.country}</td>
             <td>${item.qty || 1}</td>
-            <td>$${total.toFixed(2)}</td>
+            <td>₹${total.toFixed(2)}</td>
             <td><span class="badge bg-${badge}">${item.status}</span></td>
             <td class="text-end">
                 ${item.status === 'pending' ? `<button class="btn btn-sm btn-outline-warning me-2" onclick="verifyInternational('${item.id}')"><i class=\"fas fa-check-double\"></i> Verify</button>` : ''}
@@ -3529,7 +3529,7 @@ function initializeSupplierCatalog() {
                     <div class="card-body">
                         <h6 class="card-title mb-1">${p.name}</h6>
                         <div class="text-muted small mb-2">${s.name} • ${s.country}</div>
-                        <div class="fw-bold mb-2">$${p.price.toFixed(2)}</div>
+                        <div class="fw-bold mb-2">₹${p.price.toFixed(2)}</div>
                         <div class="d-flex gap-2">
                             <button class="btn btn-sm btn-outline-primary" title="Prefill" data-action="prefill"><i class="fas fa-magic me-1"></i>Prefill</button>
                             <button class="btn btn-sm btn-outline-secondary" title="Use Image" data-action="image"><i class="fas fa-image me-1"></i>Image</button>
@@ -3794,7 +3794,7 @@ window.openCompanyProductsModal = function(companyName) {
                 <div class="card-body">
                     <h6 class="card-title mb-1">${p.name}</h6>
                     <div class="text-muted small mb-2">${supplier.name} • ${supplier.country}</div>
-                    <div class="fw-bold mb-2">$${p.price.toFixed(2)}</div>
+                    <div class="fw-bold mb-2">₹${p.price.toFixed(2)}</div>
                     <div class="d-flex gap-2">
                         <button class="btn btn-sm btn-outline-primary" onclick='prefillInternationalForm(${JSON.stringify({name: supplier.name, country: supplier.country}).replace(/"/g, "&quot;")}, ${JSON.stringify({name: p.name, category: p.category, price: p.price, icon: p.icon, image: localImg}).replace(/"/g, "&quot;")})'><i class="fas fa-magic me-1"></i>Prefill</button>
                         <button class="btn btn-sm btn-outline-secondary" onclick='useLocalProductImage("${localImg}")'><i class="fas fa-image me-1"></i>Image</button>
@@ -3932,8 +3932,8 @@ function showBuyNowModal() {
     
     if (orderProductName) orderProductName.textContent = product.name;
     if (orderQuantity) orderQuantity.textContent = quantity;
-    if (orderPrice) orderPrice.textContent = `$${product.price.toFixed(2)}`;
-    if (orderTotal) orderTotal.textContent = `$${total.toFixed(2)}`;
+    if (orderPrice) orderPrice.textContent = `₹${product.price.toFixed(2)}`;
+    if (orderTotal) orderTotal.textContent = `₹${total.toFixed(2)}`;
     
     // Show modal
     const modalElement = document.getElementById('buyNowModal');
@@ -4122,8 +4122,10 @@ async function sendOrderNotificationToAdmin(order) {
 
 function loadAdminOrders() {
     const orders = getOrders();
-    displayOrders(orders);
-    updateOrderStats(orders);
+    // Filter out delivered orders from admin view (they're automatically removed)
+    const activeOrders = orders.filter(order => order.status !== 'delivered');
+    displayOrders(activeOrders);
+    updateOrderStats(activeOrders);
 }
 
 function displayOrders(orders) {
@@ -4189,7 +4191,7 @@ function displayOrders(orders) {
                             <small class="text-muted">Qty: ${order.quantity}</small>
                         </div>
                         <div class="col-md-2">
-                            <strong class="text-success">$${order.total.toFixed(2)}</strong>
+                            <strong class="text-success">₹${order.total.toFixed(2)}</strong>
                             <br>
                             ${statusBadge}
                         </div>
@@ -4272,7 +4274,7 @@ function showOrderDetails(orderId) {
         : '<span class="badge bg-warning text-dark">Pending</span>';
     document.getElementById('modal-product-name').textContent = order.productName;
     document.getElementById('modal-quantity').textContent = order.quantity;
-    document.getElementById('modal-total').textContent = `$${order.total.toFixed(2)}`;
+    document.getElementById('modal-total').textContent = `₹${order.total.toFixed(2)}`;
     
     document.getElementById('modal-customer-name').textContent = order.customer.name;
     document.getElementById('modal-customer-email').textContent = order.customer.email;
@@ -4784,7 +4786,7 @@ function loadProductManagement() {
     
     const avgPrice = products.length > 0 ? 
         (products.reduce((sum, p) => sum + p.price, 0) / products.length) : 0;
-    document.getElementById('avg-price').textContent = '$' + avgPrice.toFixed(2);
+    document.getElementById('avg-price').textContent = '₹' + avgPrice.toFixed(2);
     
     const recentProducts = products.filter(p => {
         const addedDate = new Date(p.dateAdded || '2025-01-01');
@@ -4836,10 +4838,13 @@ function loadProductManagement() {
             <td>
                 <span class="badge bg-secondary">${product.category}</span>
             </td>
-            <td class="fw-bold text-primary">$${product.price.toFixed(2)}</td>
+            <td class="fw-bold text-primary">₹${product.price.toFixed(2)}</td>
             <td>${addedDate}</td>
             <td>
                 <div class="btn-group btn-group-sm">
+                    <button class="btn btn-outline-secondary" onclick="openEditProductModal(${product.id})" title="Edit Product">
+                        <i class="fas fa-edit"></i>
+                    </button>
                     <button class="btn btn-outline-primary" onclick="viewProduct(${product.id})" title="View Product">
                         <i class="fas fa-eye"></i>
                     </button>
@@ -4912,6 +4917,128 @@ function initializeAddProductForm() {
             }, 2000);
         }
     });
+}
+
+// Edit product helpers (admin)
+function openEditProductModal(productId) {
+    const products = getStoredProducts();
+    const product = products.find(p => p.id === productId);
+    if (!product) { showAlert('Product not found', 'danger'); return; }
+
+    document.getElementById('editProductId').value = product.id;
+    document.getElementById('editProductName').value = product.name || '';
+    document.getElementById('editProductPrice').value = product.price || '';
+    document.getElementById('editProductCategory').value = product.category || '';
+    document.getElementById('editProductDescription').value = product.description || '';
+    document.getElementById('editProductLongDescription').value = product.longDescription || '';
+    document.getElementById('editProductIcon').value = product.icon || '';
+
+    // Render features
+    const featContainer = document.getElementById('edit-features-container');
+    featContainer.innerHTML = '';
+    (product.features || []).forEach(f => {
+        const div = document.createElement('div');
+        div.className = 'input-group mb-2';
+        div.innerHTML = `<input type="text" class="form-control" value="${escapeHtml(f)}"> <button type="button" class="btn btn-outline-danger" onclick="this.closest('.input-group').remove()"><i class=\"fas fa-trash\"></i></button>`;
+        featContainer.appendChild(div);
+    });
+    if ((product.features || []).length === 0) addEditFeature();
+
+    // Image preview
+    const preview = document.getElementById('edit-preview-img');
+    if (product.image) {
+        preview.src = product.image;
+    } else if (product.icon) {
+        preview.src = '';
+    } else {
+        preview.src = '';
+    }
+
+    // Reset file input
+    const fileInput = document.getElementById('editProductImage');
+    fileInput.value = '';
+    fileInput.onchange = function(e) {
+        const f = e.target.files[0];
+        if (!f) return;
+        const reader = new FileReader();
+        reader.onload = function(ev) {
+            preview.src = ev.target.result;
+        };
+        reader.readAsDataURL(f);
+    };
+
+    const modalEl = document.getElementById('editProductModal');
+    const modal = new bootstrap.Modal(modalEl);
+    modal.show();
+}
+
+function addEditFeature() {
+    const container = document.getElementById('edit-features-container');
+    const div = document.createElement('div');
+    div.className = 'input-group mb-2';
+    div.innerHTML = `<input type="text" class="form-control" placeholder="Enter a key feature"> <button type="button" class="btn btn-outline-danger" onclick="this.closest('div').remove()"><i class=\"fas fa-trash\"></i></button>`;
+    container.appendChild(div);
+}
+
+function saveEditedProduct() {
+    if (!requireAdminAccess()) return;
+
+    const id = parseInt(document.getElementById('editProductId').value);
+    const name = document.getElementById('editProductName').value.trim();
+    const price = parseFloat(document.getElementById('editProductPrice').value) || 0;
+    const category = document.getElementById('editProductCategory').value.trim();
+    const description = document.getElementById('editProductDescription').value.trim();
+    const longDescription = document.getElementById('editProductLongDescription').value.trim();
+    const icon = document.getElementById('editProductIcon').value.trim();
+
+    if (!name || !category || price <= 0 || !description) {
+        showAlert('Please fill in required fields and ensure price is positive', 'warning');
+        return;
+    }
+
+    const featureInputs = Array.from(document.querySelectorAll('#edit-features-container input'));
+    const features = featureInputs.map(i => i.value.trim()).filter(Boolean);
+
+    const products = getStoredProducts();
+    const idx = products.findIndex(p => p.id === id);
+    if (idx === -1) { showAlert('Product not found', 'danger'); return; }
+
+    // Handle image file (if any)
+    const fileInput = document.getElementById('editProductImage');
+    const file = fileInput.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            products[idx] = {
+                ...products[idx],
+                name, price, category, description, longDescription, icon, features,
+                image: e.target.result,
+                dateAdded: products[idx].dateAdded || new Date().toISOString()
+            };
+            saveProductsToStorage(products);
+            showAlert('Product updated successfully!', 'success');
+            const modal = bootstrap.Modal.getInstance(document.getElementById('editProductModal'));
+            modal.hide();
+            loadProductManagement();
+        };
+        reader.readAsDataURL(file);
+    } else {
+        products[idx] = {
+            ...products[idx],
+            name, price, category, description, longDescription, icon, features,
+            dateAdded: products[idx].dateAdded || new Date().toISOString()
+        };
+        saveProductsToStorage(products);
+        showAlert('Product updated successfully!', 'success');
+        const modal = bootstrap.Modal.getInstance(document.getElementById('editProductModal'));
+        modal.hide();
+        loadProductManagement();
+    }
+}
+
+// small helper to escape feature text when injecting into DOM
+function escapeHtml(str) {
+    return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 }
 
 function validateProductForm(data) {
