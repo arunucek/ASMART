@@ -1,1 +1,1 @@
-SITE LINK:https://arunucek.github.io/ASMART/
+SITE LINK:https://itsarunkumarx.github.io/ASMART/
